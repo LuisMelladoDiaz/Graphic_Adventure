@@ -29,8 +29,8 @@ Functions that describe what is and what can be done in each room
 - Contain the sound effect files .wav
 
 ## How to play
-At this point the game is pretty basic. You can move around writting 'right' or 'lef't and explore the rooms by writting the name of the element you want to inspect.
-Every action you can do is described with a single word, that is: 'right' is OK, 'move right' is WRONG.
+At this point the game is pretty basic. You can move around writting 'right' or 'lef't and explore the rooms by writting the name of the element you want to inspect.  
+Every action you can do is described with a single word, that is: 'right' is OK, 'move right' is WRONG.  
 All action words that can be performed in a room are shown in the screen or hinted in another place (there might be secret actions in a room). But the game will always show what the command word is somewhere.
 
 
