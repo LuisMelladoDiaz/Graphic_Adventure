@@ -4,9 +4,10 @@ You are trapped in a misterious dark mansion and have to find your way out.
 
 ## Installation
 This game requires Pygame. Make sure to install it before running the game.
-- pip install pygame
 Run main.py to start playing/testing.
+- pip install pygame
 
+## Files
 ### main.py
 Just initialize the game
 ### util.py
