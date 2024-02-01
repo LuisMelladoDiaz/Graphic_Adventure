@@ -2,7 +2,7 @@
 Puzzle oriented graphic adventure.
 You are trapped in a misterious dark mansion and have to find your way out.
 
-### REQUIRES PYGAME
+##### REQUIRES PYGAME
 
 ## main.py
 Just initialize the game
