@@ -1,0 +1,6 @@
+STEPS_CONCRETE = "sound\\footsteps_concrete.wav"
+DOOR = "sound\\doorShut.wav"
+SPOOKY_AMBIENT = "sound\\spooky.wav"
+KNIFE = "sound\\knife.wav"
+LEAKING = "sound\\leaking.wav"
+FLY = "sound\\fly.wav"

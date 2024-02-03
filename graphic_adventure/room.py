@@ -1,4 +1,6 @@
 from const import *
+from graphics import *
+from soundEffects import *
 from util import *
 
 
@@ -7,24 +9,19 @@ def hall_room():
     print_slow("It so dark you cannot see.")
     print_slow("You feel that there is a door to your left and another to your right")
 
-    action = choice(DIRECTIONS)
-    performAction(action)
+    performAction(DIRECTIONS)
 
 def kitchen():
-    print_slow("You enter the kitchen.")
-    play_sound(DOOR, 6)
-    print_slow(KITCHEN, 0.02)
-
-    action = choice(KITCHEN_ACTIONS)
-    performAction(action)
+    roomEntry("kitchen", KITCHEN)
+    performAction(KITCHEN_ACTIONS)
 
 def bar():
     print_slow("You get closer to the bar.")
     play_sound(STEPS_CONCRETE, 4)
     print_slow("The sink is leaking.")
     play_sound(LEAKING, 5)
-    action = choice(TABLE_ACTIONS)
-    performAction(action)
+
+    performAction(TABLE_ACTIONS)
 
 def table():
     print_slow("You get closer to the table.")
@@ -33,10 +30,8 @@ def table():
     print_slow("A complete set of cutlery lies beside each empty plate.")
 
     global inventory
-    if ("knife" in inventory): action = choice(KITCHEN_ACTIONS)
-    else: action = choice(TABLE_ACTIONS)
-
-    performAction(action)
+    if ("knife" in inventory): performAction(KITCHEN_ACTIONS)
+    else: performAction(TABLE_ACTIONS)
 
 def fridge():
     print_slow("You open the fridge.")
@@ -44,35 +39,40 @@ def fridge():
     play_sound(FLY, 6)
     print_slow("You would never put your hand in a swarm of flies.")
 
-    action = choice(KITCHEN_ACTIONS)
-    performAction(action)
+    performAction(KITCHEN_ACTIONS)
 
 def knife():
-    play_sound(KNIFE,1)
-    print_slow("You take a knife and save it in your inventory.")
+    pickItem("knife", KNIFE, 1)
+    performAction(KITCHEN_ACTIONS)
 
-    global inventory
-    inventory.append("knife")
-
-    action = choice(KITCHEN_ACTIONS)
-    performAction(action)
-
-
+## GARAGE
 def garage():
-    print_slow("You enter the garage.")
-    play_sound(DOOR, 6)
-    print_slow(GARAGE, 0.02)
+    roomEntry("garage", GARAGE)
+    performAction(GARAGE_ACTIONS)
 
-    action = choice(DIRECTIONS)
-    performAction(action)
+def car():
+    print_slow("It is an old car.")
+    performAction(GARAGE_ACTIONS)
+def box():
+    print_slow("It is a tool box covered in dust.")
+    print_slow("a sharp object like a knife could help here")
+    performAction(GARAGE_ACTIONS)
 
+def rack():
+    print_slow("The shelf is very messy.")
+    print_slow("There are chemicals products everywhere. From car oil to insecticide.")
+    performAction(GARAGE_ACTIONS)
+
+
+## YARD
 def back_yard():
-    print_slow("You go out to the backyard.")
-    play_sound(DOOR, 6)
-    print_slow(BACK_YARD, 0.02)
+    roomEntry("backyard", BACK_YARD, message="You go out to")
+    performAction(DIRECTIONS)
 
-    action = choice(DIRECTIONS)
-    performAction(action)
+def grave(): pass
+def tree(): pass
+def well(): pass
+def branch(): pass
 
 
 def go(direction):
@@ -80,20 +80,34 @@ def go(direction):
     global CURRENT_ROOM_COORDINATES
     position = CURRENT_ROOM_COORDINATES
     nextRoom, CURRENT_ROOM_COORDINATES = getNextRoom(direction, position[0], position[1])
+    actionDictionary[nextRoom]()
 
-    if (nextRoom == 'kitchen'): kitchen()
-    if (nextRoom == 'garage'): garage()
-    if (nextRoom == 'hall'): hall_room()
-    if (nextRoom == 'yard'): back_yard()
-
-def performAction(action):
+def performAction(actionList):
+    action = inputAction(actionList)
     if action in DIRECTIONS:
         go(action)
     else:
-        if (action == "bar"): bar()
-        if (action == "table"): table()
-        if (action == "knife"): knife()
-        if (action == "fridge"): fridge()
+        actionDictionary[action]()
 
-
+actionDictionary = {
+## ROOMS
+    "kitchen": kitchen,
+    "garage": garage,
+    "hall": hall_room,
+    "yard": back_yard,
+## KITCHEN
+    "bar": bar,
+    "table": table,
+    "knife": knife,
+    "fridge": fridge,
+## GARAGE
+    "car": car,
+    "rack": rack,
+    "box": box,
+## YARD
+    "grave": grave,
+    "tree": tree,
+    "branch": branch,
+    "well": well
+}
 
